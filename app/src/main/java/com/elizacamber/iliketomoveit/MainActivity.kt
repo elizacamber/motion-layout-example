@@ -1,8 +1,11 @@
 package com.elizacamber.iliketomoveit
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_main_start.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +22,9 @@ class MainActivity : AppCompatActivity() {
         rv_contacts.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = ContactsAdapter(context, contacts)
+            adapter = ContactsAdapter(context, contacts) {
+                startActivity(DetailActivity.newIntent(this@MainActivity, it))
+            }
         }
     }
 

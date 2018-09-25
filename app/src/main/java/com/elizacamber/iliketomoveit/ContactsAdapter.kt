@@ -8,13 +8,20 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.li_main.view.*
 
-class ContactsAdapter(val context: Context, val items:List<Contact>) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
+class ContactsAdapter(val context: Context, val items:List<Contact>, val listener: (Contact) -> Unit) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
-    class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder (itemView: View?) : RecyclerView.ViewHolder(itemView) {
         // Holds the TextView that will add each animal to
-        val avatar = view.iv_avatar!!
-        val tvName = view.tv_name!!
-        val tvPhone = view.tv_phone!!
+        val avatar = itemView?.iv_avatar
+        val tvName = itemView?.tv_name
+        val tvPhone = itemView?.tv_phone
+
+        fun bind (item: Contact, listener: (Contact) -> Unit) = with(itemView) {
+            avatar?.let { Glide.with(context).load(item.avatarId).into(it) }
+            tvName?.text = item.name
+            tvPhone?.text = item.phone
+            setOnClickListener { listener(item) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsAdapter.ViewHolder {
@@ -26,8 +33,6 @@ class ContactsAdapter(val context: Context, val items:List<Contact>) : RecyclerV
     }
 
     override fun onBindViewHolder(holder: ContactsAdapter.ViewHolder, position: Int) {
-        Glide.with(context).load(items[position].avatarId).into(holder.avatar)
-        holder.tvName.text = items[position].name
-        holder.tvPhone.text = items[position].phone
+        holder.bind(items[position], listener)
     }
 }
