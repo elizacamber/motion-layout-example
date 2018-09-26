@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#43A047"
+    android:background="@color/colorBgDark"
     app:layoutDescription="@xml/motion_scene_main">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -14,7 +14,7 @@
         android:layout_height="400dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="8dp"
-        android:src="#FFB300"
+        android:src="@color/colorSun"
         app:layout_constraintBottom_toTopOf="@+id/second_bg"
         app:layout_constraintStart_toStartOf="@+id/guideline_verticalHalf" />
 
@@ -99,7 +99,7 @@
         android:id="@+id/second_bg"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFF9C4"
+        android:background="@color/colorBg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
