@@ -1,7 +1,7 @@
 package com.elizacamber.iliketomoveit
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main_start.*
 
@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+    We want to have an automatic way to get the images for the avatars.
+    This will return the resource id for a specific name
+    The position refers to the item position on the list
+     */
     private fun getDrawableForPosition(position:Int): Int? {
         val name = "avatar_$position"
         return resources.getIdentifier(name, "drawable",packageName)
