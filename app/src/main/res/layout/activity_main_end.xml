@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#43A047"
+    android:background="@color/colorBgDark"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -11,7 +11,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginBottom="72dp"
-        android:src="#FFB300"
+        android:src="@color/colorSun"
         app:layout_constraintBottom_toTopOf="@+id/second_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -121,7 +121,7 @@
         android:id="@+id/second_bg"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFF9C4"
+        android:background="@color/colorBg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
