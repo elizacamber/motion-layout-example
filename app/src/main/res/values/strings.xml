@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">I like to move it</string>
+    <string name="transition_avatar_main_to_detail">transition_avatar_main_to_detail</string>
 </resources>

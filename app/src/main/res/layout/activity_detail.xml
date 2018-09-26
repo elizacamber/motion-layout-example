@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:civ_border_width="7dp"
         app:civ_border_overlay="true"
+        android:transitionName="@string/transition_avatar_main_to_detail"
         app:civ_border_color="#FFFFFF"
         tools:src="@tools:sample/avatars" />
 
