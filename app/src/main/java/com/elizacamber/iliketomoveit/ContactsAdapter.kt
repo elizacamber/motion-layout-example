@@ -10,11 +10,11 @@ import kotlinx.android.synthetic.main.li_main.view.*
 
 class ContactsAdapter(val context: Context, val items:List<Contact>, val listener: (Contact, View) -> Unit) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>() {
 
-    class ViewHolder (itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Holds the TextView that will add each animal to
-        val avatar = itemView?.iv_avatar
-        val tvName = itemView?.tv_name
-        val tvPhone = itemView?.tv_phone
+        val avatar = itemView.iv_avatar
+        val tvName = itemView.tv_name
+        val tvPhone = itemView.tv_phone
 
         fun bind (item: Contact, listener: (Contact, View) -> Unit) = with(itemView) {
             avatar?.transitionName = context.getString(R.string.transition_avatar_main_to_detail)

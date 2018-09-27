@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_detail.*
 class DetailActivity : AppCompatActivity() {
 
     private var fabFlag = false
+    private var counter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,31 +22,43 @@ class DetailActivity : AppCompatActivity() {
 
         Glide.with(this).load(intent.getIntExtra(INTENT_CONTACT_AVATAR, 0)).into(iv_avatar)
         tv_name.text = intent.getStringExtra(INTENT_CONTACT_NAME)
+        tv_counter.text = counter.toString()
 
         val animDrawable = getDrawable(R.drawable.avd_edit_done) as AnimatedVectorDrawable
         val animDrawable2 = getDrawable(R.drawable.avd_done_edit) as AnimatedVectorDrawable
 
         fab.setImageDrawable(animDrawable)
-
         fab.setOnClickListener {
             if (fabFlag) {
-                // turn into done
+                // We are in edit mode. Turn into done
                 (fab.drawable as Animatable).start()
                 fab.setImageDrawable(animDrawable)
+                bt_decrease.isClickable = true
+                bt_increase.isClickable = true
             } else {
-                // turn into pencil
+                // We're done. Turn into pencil
                 (fab.drawable as Animatable).start()
                 fab.setImageDrawable(animDrawable2)
+                bt_decrease.isClickable = false
+                bt_increase.isClickable = false
             }
             fabFlag = !fabFlag
+        }
+
+        bt_increase.setOnClickListener { tv_counter.text = "${++counter}" }
+        bt_decrease.setOnClickListener {
+            tv_counter.text = when {
+                counter > 0 -> "${--counter}"
+                else -> "$counter"
+            }
         }
     }
 
     companion object {
 
-        private val INTENT_CONTACT_AVATAR = "contact_avatar"
-        private val INTENT_CONTACT_NAME = "contact_name"
-        private val INTENT_CONTACT_PHONE = "contact_phone"
+        private const val INTENT_CONTACT_AVATAR = "contact_avatar"
+        private const val INTENT_CONTACT_NAME = "contact_name"
+        private const val INTENT_CONTACT_PHONE = "contact_phone"
 
         fun newIntent(context: Context, contact: Contact): Intent {
             val intent = Intent(context, DetailActivity::class.java)
