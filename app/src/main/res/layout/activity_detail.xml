@@ -90,17 +90,16 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_added_items"
-        android:layout_width="282dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
-        app:reverseLayout="true"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/fab"
         app:layout_constraintEnd_toStartOf="@+id/fab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fab"
+        app:reverseLayout="true"
         tools:listitem="@layout/li_detail" />
 
     <android.support.design.widget.FloatingActionButton
