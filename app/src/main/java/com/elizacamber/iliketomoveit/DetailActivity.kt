@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
+import android.view.View
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.util.*
@@ -44,14 +45,14 @@ class DetailActivity : AppCompatActivity() {
                 // We are in edit mode. Turn into done
                 (fab.drawable as Animatable).start()
                 fab.setImageDrawable(animDrawable)
-                bt_decrease.isClickable = true
-                bt_increase.isClickable = true
+                bt_decrease.visibility = View.VISIBLE
+                bt_increase.visibility = View.VISIBLE
             } else {
                 // We're done. Turn into pencil
                 (fab.drawable as Animatable).start()
                 fab.setImageDrawable(animDrawable2)
-                bt_decrease.isClickable = false
-                bt_increase.isClickable = false
+                bt_decrease.visibility = View.GONE
+                bt_increase.visibility = View.GONE
             }
             fabFlag = !fabFlag
         }
