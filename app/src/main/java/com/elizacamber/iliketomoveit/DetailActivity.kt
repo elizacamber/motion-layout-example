@@ -15,7 +15,7 @@ import java.util.*
 
 class DetailActivity : AppCompatActivity() {
 
-    private var fabFlag = false
+    private var isEditMode = false
     private var counter = 0
     private lateinit var list: List<Int>
     private lateinit var counterAdapter: CounterAdapter
@@ -39,22 +39,22 @@ class DetailActivity : AppCompatActivity() {
         val animDrawable = getDrawable(R.drawable.avd_edit_done) as AnimatedVectorDrawable
         val animDrawable2 = getDrawable(R.drawable.avd_done_edit) as AnimatedVectorDrawable
 
-        fab.setImageDrawable(animDrawable)
+        fab.setImageDrawable(animDrawable2)
+        (fab.drawable as Animatable).start()
+
         fab.setOnClickListener {
-            if (fabFlag) {
-                // We are in edit mode. Turn into done
-                (fab.drawable as Animatable).start()
+            if (!isEditMode) {
                 fab.setImageDrawable(animDrawable)
+                (fab.drawable as Animatable).start()
                 bt_decrease.visibility = View.VISIBLE
                 bt_increase.visibility = View.VISIBLE
             } else {
-                // We're done. Turn into pencil
-                (fab.drawable as Animatable).start()
                 fab.setImageDrawable(animDrawable2)
+                (fab.drawable as Animatable).start()
                 bt_decrease.visibility = View.GONE
                 bt_increase.visibility = View.GONE
             }
-            fabFlag = !fabFlag
+            isEditMode = !isEditMode
         }
 
         bt_increase.setOnClickListener {
