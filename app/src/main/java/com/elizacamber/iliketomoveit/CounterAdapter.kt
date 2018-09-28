@@ -17,6 +17,8 @@ class CounterAdapter(val context: Context, val items: List<Int>) : RecyclerView.
         val container = itemView.added_item_container
     }
 
+    var lastPosition = -1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CounterAdapter.ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.li_detail, parent, false))
     }
@@ -27,16 +29,12 @@ class CounterAdapter(val context: Context, val items: List<Int>) : RecyclerView.
 
     override fun onBindViewHolder(holder: CounterAdapter.ViewHolder, position: Int) {
         holder.avatar.let { Glide.with(context).load(R.drawable.avatar_1).into(it) }
-        if (position == itemCount - 1) {
+        if (position > lastPosition || lastPosition == 0 && position == 0) {
             val animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.anim_slide_in_from_left)
             holder.itemView.animation = animAnticipateOvershoot
             holder.container.transitionToEnd()
+            holder.container.transitionToStart()
         }
-    }
-
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        holder.container.transitionToStart()
-        holder.container.clearAnimation()
+        lastPosition = position
     }
 }

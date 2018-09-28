@@ -6,7 +6,7 @@
         motion:constraintSetStart="@+id/start"
         motion:constraintSetEnd="@+id/end"
         motion:duration="1000"
-        android:interpolator="@android:anim/accelerate_decelerate_interpolator"></Transition>
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
