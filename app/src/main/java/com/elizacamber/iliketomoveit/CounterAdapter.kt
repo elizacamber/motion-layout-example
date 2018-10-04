@@ -30,8 +30,8 @@ class CounterAdapter(val context: Context, val items: List<Int>) : RecyclerView.
     override fun onBindViewHolder(holder: CounterAdapter.ViewHolder, position: Int) {
         holder.avatar.let { Glide.with(context).load(R.drawable.avatar_1).into(it) }
         if (position > lastPosition || lastPosition == 0 && position == 0) {
-            val animAnticipateOvershoot = AnimationUtils.loadAnimation(context, R.anim.anim_slide_in_from_left)
-            holder.itemView.animation = animAnticipateOvershoot
+            val slideInAnimation = AnimationUtils.loadAnimation(context, R.anim.anim_slide_in_from_left)
+            holder.itemView.animation = slideInAnimation
             holder.container.transitionToEnd()
             holder.container.transitionToStart()
         }
