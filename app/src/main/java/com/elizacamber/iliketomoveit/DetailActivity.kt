@@ -5,12 +5,16 @@ import android.content.Intent
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.support.animation.DynamicAnimation
+import android.support.animation.FlingAnimation
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.util.*
+
 
 class DetailActivity : AppCompatActivity() {
 
@@ -33,6 +37,19 @@ class DetailActivity : AppCompatActivity() {
         rv_added_items.apply {
             setHasFixedSize(false)
             adapter = counterAdapter
+        }
+
+        rv_added_items.onFlingListener = object : RecyclerView.OnFlingListener() {
+            override fun onFling(velocityX: Int, velocityY: Int): Boolean {
+                FlingAnimation(rv_added_items, DynamicAnimation.SCROLL_X).apply {
+                    setStartVelocity(-velocityX.toFloat())
+                    setMinValue(0f)
+                    setMaxValue(Float.POSITIVE_INFINITY)
+                    friction = 1.1f
+                    start()
+                }
+                return true
+            }
         }
 
         val animDrawable = getDrawable(R.drawable.avd_edit_done) as AnimatedVectorDrawable
