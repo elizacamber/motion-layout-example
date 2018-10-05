@@ -7,10 +7,12 @@ import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.animation.DynamicAnimation
 import android.support.animation.FlingAnimation
+import android.support.v4.view.GestureDetectorCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.util.*
@@ -22,6 +24,20 @@ class DetailActivity : AppCompatActivity() {
     private var counter = 0
     private lateinit var list: List<Int>
     private lateinit var counterAdapter: CounterAdapter
+
+    private var gestureListener = object : GestureDetector.SimpleOnGestureListener() {
+        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
+            FlingAnimation(rv_added_items, DynamicAnimation.SCROLL_X).apply {
+                setStartVelocity(-velocityX)
+                setMinValue(0f)
+                setMaxValue(Float.POSITIVE_INFINITY)
+                friction = 1.1f
+                start()
+            }
+
+            return super.onFling(e1, e2, velocityX, velocityY)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,18 +55,7 @@ class DetailActivity : AppCompatActivity() {
             adapter = counterAdapter
         }
 
-        rv_added_items.onFlingListener = object : RecyclerView.OnFlingListener() {
-            override fun onFling(velocityX: Int, velocityY: Int): Boolean {
-                FlingAnimation(rv_added_items, DynamicAnimation.SCROLL_X).apply {
-                    setStartVelocity(-velocityX.toFloat())
-                    setMinValue(0f)
-                    setMaxValue(Float.POSITIVE_INFINITY)
-                    friction = 1.1f
-                    start()
-                }
-                return true
-            }
-        }
+        GestureDetectorCompat(this@DetailActivity, gestureListener)
 
         val animDrawable = getDrawable(R.drawable.avd_edit_done) as AnimatedVectorDrawable
         val animDrawable2 = getDrawable(R.drawable.avd_done_edit) as AnimatedVectorDrawable
