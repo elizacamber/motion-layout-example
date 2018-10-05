@@ -43,6 +43,7 @@
         android:foreground="@drawable/button_background"
         android:padding="28dp"
         android:src="@drawable/ic_add"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline_horizontalHalf"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical25"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical25"
@@ -69,6 +70,7 @@
         android:layout_marginEnd="8dp"
         android:background="?selectableItemBackgroundBorderless"
         android:foreground="@drawable/button_background"
+        android:visibility="gone"
         android:padding="28dp"
         android:src="@drawable/ic_remove"
         app:layout_constraintBottom_toTopOf="@+id/guideline_horizontalHalf"
@@ -90,17 +92,16 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_added_items"
-        android:layout_width="282dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="horizontal"
-        app:reverseLayout="true"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="@+id/fab"
         app:layout_constraintEnd_toStartOf="@+id/fab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/fab"
+        app:reverseLayout="true"
         tools:listitem="@layout/li_detail" />
 
     <android.support.design.widget.FloatingActionButton
