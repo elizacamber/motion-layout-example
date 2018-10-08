@@ -25,10 +25,10 @@ class DetailActivity : AppCompatActivity() {
     private var gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
             FlingAnimation(rv_added_items, DynamicAnimation.SCROLL_X).apply {
-                setStartVelocity(999f)
+                setStartVelocity(-velocityX)
                 setMinValue(0f)
-                setMaxValue(9999f)
-                friction = 50f
+                setMaxValue(Float.POSITIVE_INFINITY)
+                friction = 1.1f
                 start()
             }
             return super.onFling(e1, e2, velocityX, velocityY)
