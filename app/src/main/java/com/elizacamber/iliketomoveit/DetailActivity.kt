@@ -50,12 +50,13 @@ class DetailActivity : AppCompatActivity() {
 
         list = arrayListOf()
         counterAdapter = CounterAdapter(this@DetailActivity, list)
+        val gestureDetectorCompat = GestureDetectorCompat(this@DetailActivity, gestureListener)
         rv_added_items.apply {
             setHasFixedSize(false)
             adapter = counterAdapter
+            setOnTouchListener { _, p1 -> gestureDetectorCompat.onTouchEvent(p1) }
         }
 
-        GestureDetectorCompat(this@DetailActivity, gestureListener)
 
         val animDrawable = getDrawable(R.drawable.avd_edit_done) as AnimatedVectorDrawable
         val animDrawable2 = getDrawable(R.drawable.avd_done_edit) as AnimatedVectorDrawable
