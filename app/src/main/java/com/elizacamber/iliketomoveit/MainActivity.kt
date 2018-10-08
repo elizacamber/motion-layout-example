@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import kotlinx.android.synthetic.main.activity_main_start.*
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         getData()
 
-        rv_contacts.apply {
+        with(rv_contacts) {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = ContactsAdapter(context, contacts) { item, sharedView ->
