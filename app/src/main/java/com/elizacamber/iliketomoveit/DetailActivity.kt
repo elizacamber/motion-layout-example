@@ -92,7 +92,7 @@ class DetailActivity : AppCompatActivity() {
         var dX = iv_avatar.width / 2f
         var dY = iv_avatar.height / 2f
 
-        root.setOnTouchListener { view, motionEvent ->
+        iv_avatar.setOnTouchListener { view, motionEvent ->
             when (motionEvent?.action) {
                 MotionEvent.ACTION_DOWN -> {
                     dX = motionEvent.rawX
