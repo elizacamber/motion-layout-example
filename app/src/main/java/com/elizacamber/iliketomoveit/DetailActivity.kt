@@ -6,12 +6,11 @@ import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.support.animation.DynamicAnimation
-import android.support.animation.FlingAnimation
-import android.support.v4.view.GestureDetectorCompat
+import android.support.animation.SpringAnimation
+import android.support.animation.SpringForce
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.RecyclerView
-import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import com.bumptech.glide.Glide
@@ -20,20 +19,8 @@ import kotlinx.android.synthetic.main.activity_detail.*
 class DetailActivity : AppCompatActivity() {
 
     private var isEditMode = false
-    private lateinit var counterAdapter: CounterAdapter
 
-    private var gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-        override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-            FlingAnimation(rv_added_items, DynamicAnimation.SCROLL_X).apply {
-                setStartVelocity(-velocityX)
-                setMinValue(0f)
-                setMaxValue(Float.POSITIVE_INFINITY)
-                friction = 1.1f
-                start()
-            }
-            return super.onFling(e1, e2, velocityX, velocityY)
-        }
-    }
+    private lateinit var counterAdapter: CounterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +31,10 @@ class DetailActivity : AppCompatActivity() {
         tv_name.text = intent.getStringExtra(INTENT_CONTACT_NAME)
         tv_counter.text = "0"
 
-        val gestureDetectorCompat = GestureDetectorCompat(this@DetailActivity, gestureListener)
-
         counterAdapter = CounterAdapter(this@DetailActivity)
         rv_added_items.apply {
             setHasFixedSize(false)
             adapter = counterAdapter
-            setOnTouchListener { _, p1 -> gestureDetectorCompat.onTouchEvent(p1) }
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
@@ -61,6 +45,18 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }
             })
+        }
+
+        val springForce = SpringForce(0f).apply {
+            stiffness = SpringForce.STIFFNESS_LOW
+            dampingRatio = SpringForce.DAMPING_RATIO_HIGH_BOUNCY
+        }
+
+        val springAnimationX = SpringAnimation(iv_avatar, DynamicAnimation.TRANSLATION_X).apply {
+            spring = springForce
+        }
+        val springAnimationY = SpringAnimation(iv_avatar, DynamicAnimation.TRANSLATION_Y).apply {
+            spring = springForce
         }
 
         val animDrawable = getDrawable(R.drawable.avd_edit_done) as AnimatedVectorDrawable
@@ -91,6 +87,27 @@ class DetailActivity : AppCompatActivity() {
         bt_decrease.setOnClickListener {
             counterAdapter.removeItem()
             tv_counter.text = "${counterAdapter.itemCount}"
+        }
+
+        var dX = iv_avatar.width / 2f
+        var dY = iv_avatar.height / 2f
+
+        root.setOnTouchListener { view, motionEvent ->
+            when (motionEvent?.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    dX = motionEvent.rawX
+                    dY = motionEvent.rawY
+                }
+
+                MotionEvent.ACTION_MOVE -> {
+                    val newX = motionEvent.rawX - dX
+                    val newY = motionEvent.rawY - dY
+                    iv_avatar.animate().translationX(newX).translationY(newY).duration = 0
+                    springAnimationX.animateToFinalPosition(0f)
+                    springAnimationY.animateToFinalPosition(0f)
+                }
+            }
+            true
         }
     }
 
