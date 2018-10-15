@@ -54,16 +54,16 @@ class CounterAdapter(val context: Context) : RecyclerView.Adapter<CounterAdapter
     override fun onBindViewHolder(holder: CounterAdapter.ViewHolder, position: Int) {
         holder.avatar.let { Glide.with(context).load(R.drawable.avatar_1).into(it) }
         if (!STOP_ANIMATION) {
-            if (position > lastPosition && FLAG_ANIMATE || itemCount == 1) {
+            if (holder.adapterPosition > lastPosition || itemCount == 1) {
                 val slideInAnimation = AnimationUtils.loadAnimation(context, R.anim.anim_slide_in_from_left)
                 holder.itemView.animation = slideInAnimation
                 holder.itemView.setHasTransientState(true)
                 holder.container.transitionToEnd()
                 holder.container.transitionToStart()
-                holder.itemView.setHasTransientState(true)
+                holder.itemView.setHasTransientState(false)
             }
         }
-        FLAG_ANIMATE = lastPosition <= position
-        lastPosition = position
+        FLAG_ANIMATE = lastPosition <= holder.adapterPosition
+        lastPosition = holder.adapterPosition
     }
 }
