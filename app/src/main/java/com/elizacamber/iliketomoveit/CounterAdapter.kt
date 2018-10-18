@@ -2,6 +2,7 @@ package com.elizacamber.iliketomoveit
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,6 @@ import kotlinx.android.synthetic.main.li_detail.view.*
 class CounterAdapter(val context: Context) : RecyclerView.Adapter<CounterAdapter.ViewHolder>() {
 
     companion object {
-        var FLAG_ANIMATE = false
         var STOP_ANIMATION = false
     }
 
@@ -37,7 +37,6 @@ class CounterAdapter(val context: Context) : RecyclerView.Adapter<CounterAdapter
             items.remove(count - 1)
             notifyItemRemoved(count - 1)
             notifyItemRangeChanged(count - 1, count)
-            FLAG_ANIMATE = false
         }
     }
 
@@ -54,16 +53,20 @@ class CounterAdapter(val context: Context) : RecyclerView.Adapter<CounterAdapter
     override fun onBindViewHolder(holder: CounterAdapter.ViewHolder, position: Int) {
         holder.avatar.let { Glide.with(context).load(R.drawable.avatar_1).into(it) }
         if (!STOP_ANIMATION) {
-            if (holder.adapterPosition > lastPosition || itemCount == 1) {
+            if (holder.adapterPosition > lastPosition || lastPosition == 0 && holder.adapterPosition == 0) {
+                Log.d("CounterAdapter", "Animate ${holder.adapterPosition} - $position - $lastPosition")
+                Log.d("CounterAdapter", "entrance state: ${holder.container.currentState}")
                 val slideInAnimation = AnimationUtils.loadAnimation(context, R.anim.anim_slide_in_from_left)
                 holder.itemView.animation = slideInAnimation
-                holder.itemView.setHasTransientState(true)
                 holder.container.transitionToEnd()
+                Log.d("CounterAdapter", "final state: ${holder.container.currentState}")
                 holder.container.transitionToStart()
-                holder.itemView.setHasTransientState(false)
+                // reset the state once the animation is done
+//            holder.container.transitionToState(entranceState!!)
+            } else {
+                Log.d("CounterAdapter", "Didn't animate ${holder.adapterPosition} - $position - $lastPosition")
             }
         }
-        FLAG_ANIMATE = lastPosition <= holder.adapterPosition
         lastPosition = holder.adapterPosition
     }
 }
