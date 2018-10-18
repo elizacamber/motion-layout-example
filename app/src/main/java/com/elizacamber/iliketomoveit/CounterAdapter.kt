@@ -25,7 +25,7 @@ class CounterAdapter(val context: Context) : RecyclerView.Adapter<CounterAdapter
     val items = arrayListOf<Int>()
 
     fun addItem() {
-        val count = itemCount
+        val count = itemCount + 1
         items.add(count)
         notifyItemInserted(count)
         notifyItemRangeChanged(count - 1, count)
@@ -34,8 +34,8 @@ class CounterAdapter(val context: Context) : RecyclerView.Adapter<CounterAdapter
     fun removeItem() {
         val count = itemCount
         if (count > 0) {
-            items.remove(count - 1)
-            notifyItemRemoved(count - 1)
+            items.remove(count)
+            notifyItemRemoved(count)
             notifyItemRangeChanged(count - 1, count)
         }
     }
