@@ -19,7 +19,7 @@
             motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
-            android:id="@+id/view_animatioin_padding"
+            android:id="@+id/view_animation_padding"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             motion:layout_constraintBottom_toBottomOf="parent"
@@ -34,11 +34,11 @@
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_margin="8dp"
-            motion:layout_constraintBottom_toBottomOf="@+id/view_animatioin_padding"
+            motion:layout_constraintBottom_toBottomOf="@+id/view_animation_padding"
             motion:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
-            android:id="@+id/view_animatioin_padding"
+            android:id="@+id/view_animation_padding"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             motion:layout_constraintStart_toStartOf="parent"

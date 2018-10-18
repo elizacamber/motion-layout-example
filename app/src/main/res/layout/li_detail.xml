@@ -8,7 +8,7 @@
     app:layoutDescription="@xml/motion_scene_detail">
 
     <View
-        android:id="@+id/view_animatioin_padding"
+        android:id="@+id/view_animation_padding"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         app:layout_constraintStart_toStartOf="parent"
