@@ -1,7 +1,8 @@
 # motion-layout-example
 
-This repo is to support a workshop and a talk about animations on Android. 
-The presentation and the workshop resources will be posted here once published.
+This repo is to support a workshop and a talk about animations on Android. <br>
+Workshop: http://bit.ly/animations-workshop-18
+Presentation: http://bit.ly/animations-dcsf18
 <br>
 <br>
 <br>
