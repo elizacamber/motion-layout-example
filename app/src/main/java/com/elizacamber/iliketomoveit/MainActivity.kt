@@ -1,9 +1,9 @@
 package com.elizacamber.iliketomoveit
 
 import android.os.Bundle
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main_start.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,13 +17,20 @@ class MainActivity : AppCompatActivity() {
 
         getData()
 
-        with(rv_contacts) {
+        rv_contacts.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = ContactsAdapter(context, contacts) { item, sharedView ->
                 //val p1 = Pair.create(avatarIv as View, getString(R.string.transition_avatar_main_to_detail))
-                val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity, sharedView, getString(R.string.transition_avatar_main_to_detail))
-                startActivity(DetailActivity.newIntent(this@MainActivity, item), optionsCompat.toBundle())
+                val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this@MainActivity,
+                    sharedView,
+                    getString(R.string.transition_avatar_main_to_detail)
+                )
+                startActivity(
+                    DetailActivity.newIntent(this@MainActivity, item),
+                    optionsCompat.toBundle()
+                )
             }
         }
     }

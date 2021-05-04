@@ -50,21 +50,21 @@
         <KeyCycle
             android:translationY="50dp"
             motion:framePosition="100"
-            motion:target="@id/iv_added_item"
+            motion:motionTarget="@id/iv_added_item"
             motion:waveOffset="0"
             motion:wavePeriod="0"
             motion:waveShape="sin" />
         <KeyCycle
             android:translationY="50dp"
             motion:framePosition="50"
-            motion:target="@id/iv_added_item"
+            motion:motionTarget="@id/iv_added_item"
             motion:waveOffset="0"
             motion:wavePeriod="1"
             motion:waveShape="sin" />
         <KeyCycle
             android:translationY="50dp"
             motion:framePosition="0"
-            motion:target="@id/iv_added_item"
+            motion:motionTarget="@id/iv_added_item"
             motion:waveOffset="0"
             motion:wavePeriod="0"
             motion:waveShape="sin" />
